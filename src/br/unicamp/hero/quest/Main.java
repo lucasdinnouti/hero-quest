@@ -1,4 +1,4 @@
-package br.unicamp;
+package br.unicamp.hero.quest;
 
 public class Main {
 
