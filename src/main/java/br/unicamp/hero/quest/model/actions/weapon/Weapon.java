@@ -6,13 +6,19 @@ import br.unicamp.hero.quest.model.characters.Character;
 public abstract class Weapon implements Action<Character> {
 
     private final int attack;
+    private final int distance;
 
-    public Weapon(int attack) {
+    public Weapon(int attack, int distance) {
         this.attack = attack;
+        this.distance = distance;
     }
 
     public int getAttack() {
         return attack;
+    }
+
+    public int getDistance() {
+        return distance;
     }
 
     @Override
