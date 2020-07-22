@@ -42,5 +42,5 @@ public abstract class Character {
         }
     }
 
-    public abstract Action getRoundAction();
+    public abstract Action<?> getRoundAction();
 }

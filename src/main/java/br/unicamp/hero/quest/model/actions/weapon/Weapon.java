@@ -1,6 +1,7 @@
 package br.unicamp.hero.quest.model.actions.weapon;
 
 import br.unicamp.hero.quest.model.actions.*;
+import br.unicamp.hero.quest.model.characters.Character;
 
 public abstract class Weapon implements Action<Character> {
 
