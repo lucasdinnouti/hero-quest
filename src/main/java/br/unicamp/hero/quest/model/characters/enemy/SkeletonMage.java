@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class SkeletonMage extends Hero {
 
-    public SkeletonMage() {
-        super(3, 2, 8, 2, new ArrayList<>());
+    public SkeletonMage(int x, int y) {
+        super(3, 2, 8, 2, new ArrayList<>(), x, y);
     }
 
     @Override

@@ -8,8 +8,8 @@ public abstract class Hero extends Character {
 
     private final List<Action<?>> actions;
 
-    public Hero(int attack, int defense, int hp, int iq, List<Action<?>> actions) {
-        super(attack, defense, hp, iq);
+    public Hero(int attack, int defense, int hp, int iq, List<Action<?>> actions, int x, int y) {
+        super(attack, defense, hp, iq, x, y);
         this.actions = actions;
     }
 

@@ -5,8 +5,7 @@ import br.unicamp.hero.quest.model.actions.weapon.ShortSword;
 import java.util.List;
 
 public class Elf extends Hero {
-
-    public Elf() {
-        super(2, 2, 6, 4, List.of(new ShortSword(), new SimpleHeal()));
+    public Elf(int x, int y) {
+        super(2, 2, 6, 4, List.of(new ShortSword(), new SimpleHeal()), x, y);
     }
 }

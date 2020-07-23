@@ -46,6 +46,10 @@ public abstract class Character {
         }
     }
 
+    public Point getPosition() {
+        return this.position;
+    }
+
     public void setPosition(int x, int y) {
         this.position.setX(x);
         this.position.setY(y);
