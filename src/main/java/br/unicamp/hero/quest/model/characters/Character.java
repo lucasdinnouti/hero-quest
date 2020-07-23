@@ -1,5 +1,6 @@
 package br.unicamp.hero.quest.model.characters;
 
+import br.unicamp.hero.quest.model.*;
 import br.unicamp.hero.quest.model.actions.Action;
 
 public abstract class Character {
@@ -10,12 +11,15 @@ public abstract class Character {
     private final int maxHp;
     private int hp;
 
-    public Character(int attack, int defense, int hp, int iq) {
+    private final Point position;
+
+    public Character(int attack, int defense, int hp, int iq, int x, int y) {
         this.attack = attack;
         this.defense = defense;
         this.maxHp = hp;
         this.hp = hp;
         this.iq = iq;
+        this.position = new Point(x, y);
     }
 
     public int getAttack() {
@@ -40,6 +44,11 @@ public abstract class Character {
         } else {
             this.hp = Math.max(hp, 0);
         }
+    }
+
+    public void setPosition(int x, int y) {
+        this.position.setX(x);
+        this.position.setY(y);
     }
 
     public abstract Action<?> getRoundAction();
