@@ -2,9 +2,7 @@ package br.unicamp.hero.quest.controller;
 
 import br.unicamp.hero.quest.constant.Command;
 import br.unicamp.hero.quest.constant.Direction;
-import br.unicamp.hero.quest.exception.LackOfStepsException;
 import br.unicamp.hero.quest.exception.MoveException;
-import br.unicamp.hero.quest.exception.OccupiedPositionException;
 import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.service.ActionService;
 import br.unicamp.hero.quest.service.KeyboardService;
