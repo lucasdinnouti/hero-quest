@@ -8,7 +8,7 @@ import java.util.stream.*;
 
 public class Board {
     private final List<Point> edges;
-    private final List<List<TileType>> map;
+    private final List<TileType> map;
     private final Hero hero;
 
     private final int sizeX;
@@ -16,16 +16,16 @@ public class Board {
 
     public Board(Hero hero) {
         this.map = List.of(
-            List.of(TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL),
-            List.of(TileType.WALL, TileType.PATH, TileType.PATH, TileType.PATH, TileType.WALL),
-            List.of(TileType.WALL, TileType.PATH, TileType.WALL, TileType.PATH, TileType.WALL),
-            List.of(TileType.WALL, TileType.PATH, TileType.WALL, TileType.PATH, TileType.WALL),
-            List.of(TileType.WALL, TileType.PATH, TileType.PATH, TileType.PATH, TileType.WALL),
-            List.of(TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL)
+            TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL,
+            TileType.WALL, TileType.PATH, TileType.PATH, TileType.PATH, TileType.WALL,
+            TileType.WALL, TileType.PATH, TileType.WALL, TileType.PATH, TileType.WALL,
+            TileType.WALL, TileType.PATH, TileType.WALL, TileType.PATH, TileType.WALL,
+            TileType.WALL, TileType.PATH, TileType.PATH, TileType.PATH, TileType.WALL,
+            TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL
         );
 
-        this.sizeY = this.map.size();
-        this.sizeX = this.map.get(0).size();
+        this.sizeY = 6;
+        this.sizeX = 5;
         this.hero = hero;
 
         this.edges = IntStream.range(0, sizeX)
@@ -46,7 +46,7 @@ public class Board {
     }
 
     public TileType getTile(int x, int y) {
-        return this.map.get(y).get(x);
+        return this.map.get(y * this.sizeX + x);
     }
 
     public boolean isWall(Point point) {
@@ -55,10 +55,6 @@ public class Board {
 
     public List<Point> getEdges() {
         return edges;
-    }
-
-    public List<List<TileType>> getMap() {
-        return map;
     }
 
     public Hero getHero() {
