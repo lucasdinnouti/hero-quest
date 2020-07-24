@@ -32,9 +32,9 @@ public class TerminalRenderService implements RenderService {
                 final Region region = Region.fromCenter(x, y, heroPosition);
                 final boolean isVisible = visible.stream()
                     .anyMatch(point ->
-                        point.getY() == y + region.yDiff && point.getX() == x
-                            || point.getY() == y && point.getX() == x + region.xDiff
-                            || point.getY() == y + region.yDiff && point.getX() == x + region.xDiff
+                        point.equals(x, y + region.yDiff)
+                            || point.equals(x + region.xDiff, y)
+                            || point.equals(x + region.xDiff, y + region.yDiff)
                     );
 
                 if (isVisible) {
