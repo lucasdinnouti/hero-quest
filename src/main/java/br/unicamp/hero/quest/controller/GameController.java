@@ -1,21 +1,23 @@
 package br.unicamp.hero.quest.controller;
 
 import br.unicamp.hero.quest.constant.*;
+import br.unicamp.hero.quest.exception.*;
 import br.unicamp.hero.quest.factory.board.*;
 import br.unicamp.hero.quest.model.board.*;
 import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.model.characters.hero.*;
 import br.unicamp.hero.quest.service.*;
+import br.unicamp.hero.quest.service.input.*;
 import br.unicamp.hero.quest.service.render.*;
 import br.unicamp.hero.quest.utils.*;
 
 public class GameController {
-    Board board;
+    private final Board board;
 
-    InputService inputService;
-    RenderService renderService;
-    ActionService actionService;
-    ScavengeService scavengeService;
+    private final InputService inputService;
+    private final RenderService renderService;
+    private final ActionService actionService;
+    private final ScavengeService scavengeService;
 
     MovementController movementController;
 
@@ -71,19 +73,26 @@ public class GameController {
                 case MOVE_RIGHT:
                     movementController.walk(character, directionFromCommand(command));
                     break;
+
                 case SCAVENGE:
                     if (!acted) {
                         scavengeService.pickStuff(character);
                     }
                     acted = true;
                     break;
-                default:
+
+                case CAST_SPELL:
+                case ATTACK:
                     if (!acted) {
                         actionService.doStuff(character, command);
                     }
                     acted = true;
                     break;
+
+                default:
+                    throw new InvalidCommandException();
             }
+
             renderService.render(board);
             command = inputService.readCommand();
         }

@@ -1,15 +1,17 @@
-package br.unicamp.hero.quest.service;
+package br.unicamp.hero.quest.service.input;
 
 import br.unicamp.hero.quest.constant.Command;
 import br.unicamp.hero.quest.constant.InterfaceText;
+import br.unicamp.hero.quest.service.input.*;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class KeyboardService implements InputService {
+public class KeyboardInputService implements InputService {
 
     private final Scanner scanner;
 
-    public KeyboardService(InputStream in) {
+    public KeyboardInputService(InputStream in) {
         this.scanner = new Scanner(in);
     }
 
@@ -32,7 +34,7 @@ public class KeyboardService implements InputService {
             case InterfaceText.CAST_SPELL_COMMAND:
                 return Command.CAST_SPELL;
             default:
-                return null;
+                return Command.INVALID;
         }
     }
 }
