@@ -11,6 +11,8 @@ public class InterfaceText {
     public static final String SCAVENGE_COMMAND = "k";
     public static final String CAST_SPELL_COMMAND = "l";
 
+    public static final String END_ROUND_COMMAND = "q";
+
     public static final String LACK_OF_STEPS_MESSAGE = "Character %s can not move, as their steps ran over.";
     public static final String OCCUPIED_POSITION_MESSAGE = "Character %s can not move, as position %s is occupied.";
 }

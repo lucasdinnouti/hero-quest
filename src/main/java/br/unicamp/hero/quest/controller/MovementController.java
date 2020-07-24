@@ -29,7 +29,11 @@ public class MovementController {
         }
     }
 
-    public void startWalk(Character character) {
+    public void startWalkPhase(Character character) {
         stepsByCharacter.put(character, rollDice(2, 6));
+    }
+
+    public void endWalkPhase(Character character) {
+        stepsByCharacter.put(character, null);
     }
 }

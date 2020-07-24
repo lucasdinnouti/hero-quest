@@ -8,7 +8,9 @@ public enum Command {
 
     ATTACK(false),
     SCAVENGE(false),
-    CAST_SPELL(false);
+    CAST_SPELL(false),
+
+    END_ROUND(false);
 
     private final boolean walkCommand;
 

@@ -5,7 +5,7 @@ import br.unicamp.hero.quest.constant.InterfaceText;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class KeyboardService {
+public class KeyboardService implements InputService {
 
     private final Scanner scanner;
 
