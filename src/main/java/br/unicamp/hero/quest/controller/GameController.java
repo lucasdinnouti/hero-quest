@@ -58,6 +58,52 @@ public class GameController {
         movementController.endWalkPhase(character);
     }
 
+    private void managePlayerRoundNew(Character character) {
+        Command command = inputService.readCommand();
+
+        if (command.isWalkCommand()) {
+            walkPhase(character);
+            actionPhase(character);
+        } else {
+            actionPhase(character);
+            command = inputService.readCommand();
+            if (command.isWalkCommand()) {
+                walkPhase(character);
+            }
+        }
+    }
+
+    private void actionPhase(Character character) {
+        switch (inputService.getLastCommand()) {
+            case SCAVENGE:
+                scavengeService.pickStuff(character);
+                break;
+            case CAST_SPELL:
+            case ATTACK:
+                actionService.doStuff(character, inputService.getLastCommand());
+                break;
+            case END_ROUND:
+                return;
+            default:
+                throw new InvalidCommandException();
+        }
+    }
+
+    private void walkPhase(Character character) {
+        Command command = inputService.getLastCommand();
+
+        movementController.startWalkPhase(character);
+        while (command.isWalkCommand()) {
+            try {
+                movementController.walk(character, directionFromCommand(command));
+            } catch (MoveException e) {
+                renderService.displayMessage(e.getMessage());
+            }
+            displayInformation(String.format("Remaining steps: %d", movementController.remainingSteps(character)));
+            command = inputService.readCommand();
+        }
+    }
+
     private void managePlayerRound(Character character) {
         Command command = inputService.readCommand();
 

@@ -7,4 +7,5 @@ import java.util.Scanner;
 
 public interface InputService {
     Command readCommand();
+    Command getLastCommand();
 }
