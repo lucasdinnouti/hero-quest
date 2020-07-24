@@ -41,116 +41,35 @@ public class Board {
         );
     }
 
-    private List<Point> bresenhamLine(Point end) {
-        final Point start = this.hero.getPosition();
-
-        int x1 = start.getX();
-        int y1 = start.getY();
-        int x2 = end.getX();
-        int y2 = end.getY();
-        final boolean isSteep = Math.abs(y2 - y1) > Math.abs(x2 - x1);
-
-        if (isSteep) {
-            x1 = start.getY();
-            y1 = start.getX();
-            x2 = end.getY();
-            y2 = end.getX();
-        }
-
-        final boolean isReversed = x1 > x2;
-        if (isReversed) {
-            int oldX1 = x1;
-            x1 = x2;
-            x2 = oldX1;
-
-            int oldY1 = y1;
-            y1 = y2;
-            y2 = oldY1;
-        }
-
-        int dx = x2 - x1;
-        int dy = Math.abs(y2 - y1);
-
-        int error = (int)(dx / 2.0);
-        final int yStep = y1 < y2 ? 1 : -1;
-
-        final List<Point> points = new ArrayList<>();
-        for (int x = x1, y = y1; x < x2 + 1; x++) {
-            final Point coord = isSteep ? new Point(y, x) : new Point(x, y);
-            points.add(coord);
-
-            error -= dy;
-            if (error < 0) {
-                y += yStep;
-                error += dx;
-            }
-        }
-
-        if (isReversed) {
-            Collections.reverse(points);
-        }
-
-        return points;
+    public TileType getTile(Point point) {
+        return this.getTile(point.getX(), point.getY());
     }
 
-    @Override
-    public String toString() {
-        final List<Point> visible = this.edges.stream()
-            .map(this::bresenhamLine)
-            .flatMap(ray -> ray.stream().takeWhile(p -> this.map.get(p.getY()).get(p.getX()) != TileType.WALL))
-            .collect(Collectors.toList());
-
-        return IntStream.range(0, this.sizeY)
-            .mapToObj(y ->
-                IntStream.range(0, this.sizeX)
-                    .mapToObj(x -> {
-                        if (visible.stream().anyMatch(point -> point.getY() == y && point.getX() == x)) {
-                            return "  ";
-                        }
-
-                        final TileType tile = this.map.get(y).get(x);
-                        if (tile == TileType.PATH) {
-                            return "::";
-                        }
-
-                        final Region region = Region.fromHero(x, y, this.hero);
-                        final boolean isVisible = visible.stream()
-                            .anyMatch(point ->
-                                point.getY() == y + region.yDiff && point.getX() == x
-                                    || point.getY() == y && point.getX() == x + region.xDiff
-                                    || point.getY() == y + region.yDiff && point.getX() == x + region.xDiff
-                            );
-
-                        if (isVisible) {
-                            return "XX";
-                        }
-
-                        return "::";
-                    })
-                    .collect(Collectors.joining())
-            )
-            .collect(Collectors.joining("\n"));
+    public TileType getTile(int x, int y) {
+        return this.map.get(y).get(x);
     }
 
-    private enum Region {
-        NW(1, 1),
-        NE(-1, 1),
-        SW(1, -1),
-        SE(-1, -1);
+    public boolean isWall(Point point) {
+        return this.getTile(point) == TileType.WALL;
+    }
 
-        final int xDiff, yDiff;
-        Region(int xDiff, int yDiff) {
-            this.xDiff = xDiff;
-            this.yDiff = yDiff;
-        }
+    public List<Point> getEdges() {
+        return edges;
+    }
 
-        public static Region fromHero(int x, int y, Hero hero) {
-            final Point heroPosition = hero.getPosition();
-            if (y <= heroPosition.getY()) {
-                return x <= heroPosition.getX() ? NW : NE;
-            } else {
-                return x <= heroPosition.getX() ? SW : SE;
-            }
-        }
+    public List<List<TileType>> getMap() {
+        return map;
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
     }
 }
