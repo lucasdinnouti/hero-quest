@@ -14,18 +14,10 @@ public class Board {
     private final int sizeX;
     private final int sizeY;
 
-    public Board(Hero hero) {
-        this.map = List.of(
-            TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL,
-            TileType.WALL, TileType.PATH, TileType.PATH, TileType.PATH, TileType.WALL,
-            TileType.WALL, TileType.PATH, TileType.WALL, TileType.PATH, TileType.WALL,
-            TileType.WALL, TileType.PATH, TileType.WALL, TileType.PATH, TileType.WALL,
-            TileType.WALL, TileType.PATH, TileType.PATH, TileType.PATH, TileType.WALL,
-            TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL, TileType.WALL
-        );
-
-        this.sizeY = 6;
-        this.sizeX = 5;
+    public Board(Hero hero, int sizeX, int sizeY, List<TileType> map) {
+        this.sizeY = sizeY;
+        this.sizeX = sizeX;
+        this.map = map;
         this.hero = hero;
 
         this.edges = IntStream.range(0, sizeX)
