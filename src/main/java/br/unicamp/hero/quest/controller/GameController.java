@@ -71,7 +71,11 @@ public class GameController {
                 case MOVE_UP:
                 case MOVE_LEFT:
                 case MOVE_RIGHT:
-                    movementController.walk(character, directionFromCommand(command));
+                    try {
+                        movementController.walk(character, directionFromCommand(command));
+                    } catch (MoveException e) {
+                        renderService.displayMessage(e.getMessage());
+                    }
                     break;
 
                 case SCAVENGE:
@@ -92,8 +96,7 @@ public class GameController {
                 default:
                     throw new InvalidCommandException();
             }
-
-            renderService.render(board);
+            displayInformation(String.format("Remaining steps: %d", movementController.remainingSteps(character)));
             command = inputService.readCommand();
         }
         movementController.endWalkPhase(character);
@@ -112,5 +115,10 @@ public class GameController {
             default:
                 return null;
         }
+    }
+
+    private void displayInformation(String message) {
+        renderService.displayMessage(message);
+        renderService.render(board);
     }
 }

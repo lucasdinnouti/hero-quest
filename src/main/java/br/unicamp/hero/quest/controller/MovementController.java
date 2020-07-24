@@ -24,9 +24,14 @@ public class MovementController {
 
         if (stepsRemaining > 0) {
             movementService.moveCharacter(character, direction);
+            stepsByCharacter.put(character, stepsRemaining - 1);
         } else {
             throw new LackOfStepsException(String.format(LACK_OF_STEPS_MESSAGE, character.toString()));
         }
+    }
+
+    public int remainingSteps(Character character) {
+        return stepsByCharacter.get(character);
     }
 
     public void startWalkPhase(Character character) {

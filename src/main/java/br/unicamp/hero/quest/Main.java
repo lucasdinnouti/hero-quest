@@ -24,6 +24,8 @@ public class Main {
 
         while (true) {
             gameController.manageRound(hero);
+
+            System.out.println("-------------------------------------");
         }
     }
 }

@@ -4,4 +4,5 @@ import br.unicamp.hero.quest.model.board.*;
 
 public interface RenderService {
     void render(Board board);
+    void displayMessage(String message);
 }
