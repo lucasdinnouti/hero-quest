@@ -11,6 +11,9 @@ import br.unicamp.hero.quest.service.input.*;
 import br.unicamp.hero.quest.service.render.*;
 import br.unicamp.hero.quest.utils.*;
 
+import static br.unicamp.hero.quest.constant.InterfaceText.QUIT_COMMAND;
+import static br.unicamp.hero.quest.constant.InterfaceText.UNKNOWN_ACTION_MESSAGE;
+
 public class GameController {
     private final Board board;
 
@@ -58,7 +61,7 @@ public class GameController {
         movementController.endWalkPhase(character);
     }
 
-    private void managePlayerRoundNew(Character character) {
+    private void managePlayerRound(Character character) {
         Command command = inputService.readCommand();
 
         if (command.isWalkCommand()) {
@@ -74,18 +77,26 @@ public class GameController {
     }
 
     private void actionPhase(Character character) {
-        switch (inputService.getLastCommand()) {
-            case SCAVENGE:
-                scavengeService.pickStuff(character);
-                break;
-            case CAST_SPELL:
-            case ATTACK:
-                actionService.doStuff(character, inputService.getLastCommand());
-                break;
-            case END_ROUND:
-                return;
-            default:
-                renderService.displayMessage("Command not available");
+        boolean validAction = false;
+
+        while (!validAction) {
+            displayInformation("Executing " + inputService.getLastCommand().name());
+            switch (inputService.getLastCommand()) {
+                case SCAVENGE:
+                    scavengeService.pickStuff(character);
+                    validAction = true;
+                    break;
+                case CAST_SPELL:
+                case ATTACK:
+                    actionService.doStuff(character, inputService.getLastCommand());
+                    validAction = true;
+                    break;
+                case QUIT:
+                    return;
+                default:
+                    renderService.displayMessage(String.format(UNKNOWN_ACTION_MESSAGE, QUIT_COMMAND));
+                    inputService.readCommand();
+            }
         }
     }
 
@@ -104,14 +115,14 @@ public class GameController {
         }
     }
 
-    private void managePlayerRound(Character character) {
+    private void managePlayerRoundOld(Character character) {
         Command command = inputService.readCommand();
 
         movementController.startWalkPhase(character);
 
         boolean acted = false;
 
-        while (command != Command.END_ROUND) {
+        while (command != Command.QUIT) {
             switch (command) {
                 case MOVE_DOWN:
                 case MOVE_UP:

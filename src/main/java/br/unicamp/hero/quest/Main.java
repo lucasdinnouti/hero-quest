@@ -25,7 +25,7 @@ public class Main {
         while (true) {
             gameController.manageRound(hero);
 
-            System.out.println("-------------------------------------");
+            renderService.displayMessage(" ".repeat(30) + "ROUND OVER");
         }
     }
 }

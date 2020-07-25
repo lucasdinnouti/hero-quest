@@ -43,6 +43,9 @@ public class KeyboardInputService implements InputService {
             case InterfaceText.CAST_SPELL_COMMAND:
                 lastCommand = Command.CAST_SPELL;
                 break;
+            case InterfaceText.QUIT_COMMAND:
+                lastCommand = Command.QUIT;
+                break;
             default:
                 lastCommand =  Command.INVALID;
         }

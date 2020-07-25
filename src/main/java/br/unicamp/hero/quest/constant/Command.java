@@ -10,7 +10,7 @@ public enum Command {
     SCAVENGE(false),
     CAST_SPELL(false),
 
-    END_ROUND(false),
+    QUIT(false),
 
     INVALID(false);
 
