@@ -24,18 +24,25 @@ public class KeyboardInputService implements InputService {
         switch (commandText) {
             case InterfaceText.ATTACK_COMMAND:
                 lastCommand = Command.ATTACK;
+                break;
             case InterfaceText.MOVE_DOWN_COMMAND:
                 lastCommand = Command.MOVE_DOWN;
+                break;
             case InterfaceText.MOVE_UP_COMMAND:
                 lastCommand = Command.MOVE_UP;
+                break;
             case InterfaceText.MOVE_LEFT_COMMAND:
                 lastCommand = Command.MOVE_LEFT;
+                break;
             case InterfaceText.MOVE_RIGHT_COMMAND:
                 lastCommand = Command.MOVE_RIGHT;
+                break;
             case InterfaceText.SCAVENGE_COMMAND:
                 lastCommand = Command.SCAVENGE;
+                break;
             case InterfaceText.CAST_SPELL_COMMAND:
                 lastCommand = Command.CAST_SPELL;
+                break;
             default:
                 lastCommand =  Command.INVALID;
         }

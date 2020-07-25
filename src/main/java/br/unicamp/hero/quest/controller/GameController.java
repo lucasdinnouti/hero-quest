@@ -85,7 +85,7 @@ public class GameController {
             case END_ROUND:
                 return;
             default:
-                throw new InvalidCommandException();
+                renderService.displayMessage("Command not available");
         }
     }
 
@@ -140,7 +140,7 @@ public class GameController {
                     break;
 
                 default:
-                    throw new InvalidCommandException();
+                    renderService.displayMessage("Command not available");
             }
             displayInformation(String.format("Remaining steps: %d", movementController.remainingSteps(character)));
             command = inputService.readCommand();
