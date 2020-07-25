@@ -2,6 +2,8 @@ package br.unicamp.hero.quest.service.render;
 
 import br.unicamp.hero.quest.model.*;
 import br.unicamp.hero.quest.model.board.*;
+import br.unicamp.hero.quest.model.characters.Character;
+import br.unicamp.hero.quest.model.characters.hero.*;
 
 import java.util.*;
 import java.util.function.*;
@@ -23,8 +25,9 @@ public class TerminalRenderService implements RenderService {
 
         final String map = IntStream.range(0, board.getSizeY()).mapToObj(y ->
             IntStream.range(0, board.getSizeX()).mapToObj(x -> {
+                Optional<Character> character = board.getCharacter(x, y);
                 if (visible.stream().anyMatch(point -> point.getY() == y && point.getX() == x)) {
-                    return "  ";
+                    return character.isPresent() ? "HR" : "  ";
                 }
 
                 final TileType tile = board.getTile(x, y);

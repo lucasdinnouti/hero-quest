@@ -17,14 +17,13 @@ public class Main {
             throw new Exception("Could not find map file!");
         }
 
-        final BoardFactory boardFactory = new StaticBoardFactory(filePath);
+        final BoardFactory boardFactory = new FileBoardFactory(filePath);
         final KeyboardInputService keyboardInputService = new KeyboardInputService(System.in);
         final RenderService renderService = new TerminalRenderService();
         GameController gameController = new GameController(hero, boardFactory, keyboardInputService, renderService);
 
         while (true) {
             gameController.manageRound(hero);
-
             renderService.displayMessage(" ".repeat(30) + "ROUND OVER");
         }
     }

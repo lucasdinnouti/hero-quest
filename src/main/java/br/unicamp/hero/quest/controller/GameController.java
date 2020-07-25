@@ -30,7 +30,8 @@ public class GameController {
         InputService inputService,
         RenderService renderService
     ) {
-        this.board = boardFactory.getBoard(hero);
+        this.board = boardFactory.getBoard();
+        this.board.addCharacter(hero);
 
         this.inputService = inputService;
         this.renderService = renderService;

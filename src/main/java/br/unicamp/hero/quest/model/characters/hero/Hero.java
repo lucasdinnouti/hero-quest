@@ -5,7 +5,6 @@ import br.unicamp.hero.quest.model.characters.Character;
 import java.util.List;
 
 public abstract class Hero extends Character {
-
     private final List<Action> actions;
 
     public Hero(int attack, int defense, int hp, int iq, List<Action> actions, int x, int y) {

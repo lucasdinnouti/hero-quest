@@ -15,13 +15,11 @@ public class Board {
     private final int sizeX;
     private final int sizeY;
 
-    public Board(Hero hero, int sizeX, int sizeY, List<TileType> map) {
+    public Board(int sizeX, int sizeY, List<TileType> map) {
         this.sizeY = sizeY;
         this.sizeX = sizeX;
         this.map = map;
-
         this.characters = new ArrayList<>();
-        this.characters.add(hero);
 
         this.edges = IntStream.range(0, sizeX)
             .mapToObj(x -> List.of(new Point(x, 0), new Point(x, sizeY - 1)))
@@ -34,6 +32,10 @@ public class Board {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList())
         );
+    }
+
+    public void addCharacter(Character character) {
+        this.characters.add(character);
     }
 
     public Optional<Character> getCharacter(int x, int y) {
