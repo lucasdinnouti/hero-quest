@@ -60,5 +60,5 @@ public abstract class Character {
         this.position.setY(point.getY());
     }
 
-    public abstract Action<?> getRoundAction();
+    public abstract Action getRoundAction();
 }

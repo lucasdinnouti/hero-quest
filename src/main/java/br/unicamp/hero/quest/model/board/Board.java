@@ -1,6 +1,7 @@
 package br.unicamp.hero.quest.model.board;
 
 import br.unicamp.hero.quest.model.*;
+import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.model.characters.hero.*;
 
 import java.util.*;
@@ -9,7 +10,7 @@ import java.util.stream.*;
 public class Board {
     private final List<Point> edges;
     private final List<TileType> map;
-    private final Hero hero;
+    private final List<Character> characters;
 
     private final int sizeX;
     private final int sizeY;
@@ -18,7 +19,9 @@ public class Board {
         this.sizeY = sizeY;
         this.sizeX = sizeX;
         this.map = map;
-        this.hero = hero;
+
+        this.characters = new ArrayList<>();
+        this.characters.add(hero);
 
         this.edges = IntStream.range(0, sizeX)
             .mapToObj(x -> List.of(new Point(x, 0), new Point(x, sizeY - 1)))
@@ -31,6 +34,12 @@ public class Board {
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList())
         );
+    }
+
+    public Optional<Character> getCharacter(int x, int y) {
+        return this.characters.stream()
+            .filter(it -> it.getPosition().equals(x, y))
+            .findFirst();
     }
 
     public TileType getTile(Point point) {
@@ -50,7 +59,10 @@ public class Board {
     }
 
     public Hero getHero() {
-        return hero;
+        return (Hero) this.characters.stream()
+            .filter(it -> it instanceof Hero)
+            .findFirst()
+            .get();
     }
 
     public int getSizeX() {
