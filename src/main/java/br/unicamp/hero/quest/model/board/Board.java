@@ -60,6 +60,10 @@ public class Board {
         return this.getTile(point) == TileType.WALL;
     }
 
+    public boolean isInsideBoard(Point point) {
+        return point.getX() > 0 && point.getY() > 0 && point.getX() < sizeX && point.getY() < sizeY;
+    }
+
     public List<Point> getEdges() {
         return edges;
     }

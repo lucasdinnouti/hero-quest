@@ -100,7 +100,6 @@ public class GameController {
                     couldMove = true;
                 } catch (MoveException e) {
                     directions.remove(0);
-                    renderService.displayMessage(e.getMessage());
                 }
             }
         } catch (Exception ignored) {
