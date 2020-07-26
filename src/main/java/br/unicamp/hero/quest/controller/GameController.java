@@ -18,9 +18,7 @@ import br.unicamp.hero.quest.service.render.RenderService;
 import br.unicamp.hero.quest.utils.PositionUtils;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Random;
 
 import static br.unicamp.hero.quest.constant.InterfaceText.*;
@@ -177,6 +175,13 @@ public class GameController {
         }
     }
 
+
+    /**
+     * Note that, for an invalid command what is going to happen is that walkPhase will be ended.
+     * This may seem like a mistake if you're trying to move and misses a command, but fits in the
+     * behavior designed which is: for a command which is not walking, an action should be tried.
+     * @param character
+     */
     private void walkPhase(Character character) {
         Command command = inputService.getLastCommand();
 
