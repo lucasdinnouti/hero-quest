@@ -101,6 +101,10 @@ public class Board {
         return character.isEmpty();
     }
 
+    public void removeCorpses() {
+        characters.removeIf(character -> character.getHp() <= 0);
+    }
+
     private boolean isInsideBoard(Point point) {
         return point.getX() > 0 && point.getY() > 0 && point.getX() < sizeX && point.getY() < sizeY;
     }

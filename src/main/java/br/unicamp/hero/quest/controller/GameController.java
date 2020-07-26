@@ -48,15 +48,14 @@ public class GameController {
     }
 
     public void startGame() {
-        final List<Character> characters = this.board.getCharacters();
-        if (characters.isEmpty()) {
-            renderService.displayMessage(NO_CHARACTERS_MESSAGE);
-            return;
-        }
-
         int roundNumber = 0;
         renderService.render(this.board);
         do {
+            final List<Character> characters = new ArrayList<>(this.board.getCharacters());
+            if (characters.isEmpty()) {
+                renderService.displayMessage(NO_CHARACTERS_MESSAGE);
+                return;
+            }
             roundNumber++;
             renderService.displayMessage(" ".repeat(31) + String.format(ROUND_BANNER_MESSAGE, roundNumber));
 

@@ -19,7 +19,7 @@ public class MovementService {
     public void moveCharacter(Character character, Direction direction) {
         Point newPosition = PositionUtils.plusDirection(character.getPosition(), direction);
 
-        if (board.canMove(newPosition)) {
+        if (!board.canMove(newPosition)) {
             throw new InvalidPositionException(String.format(INVALID_POSITION_MESSAGE, character.toString(), newPosition.toString()));
         }
 
@@ -27,7 +27,7 @@ public class MovementService {
     }
 
     public void moveCharacter(Character character, Point position) {
-        if (board.canMove(position)) {
+        if (!board.canMove(position)) {
             throw new InvalidPositionException(String.format(INVALID_POSITION_MESSAGE, character.toString(), position.toString()));
         }
 
