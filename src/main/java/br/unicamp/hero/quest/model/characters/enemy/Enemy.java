@@ -7,15 +7,10 @@ import java.util.*;
 
 public abstract class Enemy extends Character {
 
-    private final ArrayList<Action<?>> actions;
+    private final ArrayList<Action> actions;
 
-    public Enemy(int attack, int defense, int hp, int iq, ArrayList<Action<?>> actions, int x, int y, String name) {
+    public Enemy(int attack, int defense, int hp, int iq, ArrayList<Action> actions, int x, int y, String name) {
         super(attack, defense, hp, iq, x, y, name);
         this.actions = actions;
-    }
-
-    @Override
-    public Action<?> getRoundAction() {
-        return this.actions.get(0);
     }
 }

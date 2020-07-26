@@ -3,7 +3,7 @@ package br.unicamp.hero.quest.model.actions.weapon;
 import br.unicamp.hero.quest.model.actions.*;
 import br.unicamp.hero.quest.model.characters.Character;
 
-public abstract class Weapon implements Action<Character> {
+public abstract class Weapon implements Action {
 
     private final int attack;
     private final int distance;
@@ -22,7 +22,7 @@ public abstract class Weapon implements Action<Character> {
     }
 
     @Override
-    public void execute(Character target) {
+    public void execute(Character source, Character target) {
         this.attack(target);
     }
 

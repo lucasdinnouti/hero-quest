@@ -12,7 +12,7 @@ public class SkeletonMage extends Hero {
     }
 
     @Override
-    public Action<?> getRoundAction() {
+    public Action getRoundAction() {
         return new MagicMissile();
     }
 }

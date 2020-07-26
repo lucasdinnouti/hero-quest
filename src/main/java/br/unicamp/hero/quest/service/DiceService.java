@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 public class DiceService {
-
     public static int rollDie(int faces) {
         return new Random().nextInt(faces);
     }

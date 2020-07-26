@@ -10,16 +10,16 @@ import java.util.*;
 import java.util.regex.*;
 import java.util.stream.*;
 
-public class StaticBoardFactory implements BoardFactory {
+public class FileBoardFactory implements BoardFactory {
     private final Scanner fileScanner;
 
-    public StaticBoardFactory(URL filePath) throws URISyntaxException, FileNotFoundException {
+    public FileBoardFactory(URL filePath) throws URISyntaxException, FileNotFoundException {
         final File file = Paths.get(filePath.toURI()).toFile();
         this.fileScanner = new Scanner(file);
     }
 
     @Override
-    public Board getBoard(Hero hero) {
+    public Board getBoard() {
         final List<String> lines = this.fileScanner
             .useDelimiter("\n")
             .tokens()
@@ -35,7 +35,7 @@ public class StaticBoardFactory implements BoardFactory {
             .map(this::stringToTileType)
             .collect(Collectors.toList());
 
-        return new Board(hero, sizeX, sizeY, map);
+        return new Board(sizeX, sizeY, map);
     }
 
     private TileType stringToTileType(String s) {
