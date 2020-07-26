@@ -27,18 +27,14 @@ public class GameController {
     private final HeroActionService heroActionService;
     private final EnemyActionService enemyActionService;
 
-    ArrayList<Character> characters;
-
-    MovementController movementController;
+    private final MovementController movementController;
 
     public GameController(
-        Hero hero,
         BoardFactory boardFactory,
         InputService inputService,
         RenderService renderService
     ) {
         this.board = boardFactory.getBoard();
-        this.board.addCharacter(hero);
 
         this.inputService = inputService;
         this.renderService = renderService;
@@ -48,20 +44,17 @@ public class GameController {
 
         this.scavengeService = new ScavengeService(board);
         this.movementController = new MovementController(new MovementService(board));
-
-        characters = new ArrayList<>();
-
-        renderService.render(board);
     }
 
     public void startGame() {
+        final List<Character> characters = this.board.getCharacters();
         if (characters.isEmpty()) {
             renderService.displayMessage(NO_CHARACTERS_MESSAGE);
             return;
         }
 
         int roundNumber = 0;
-
+        renderService.render(this.board);
         do {
             roundNumber++;
             renderService.displayMessage(" ".repeat(31) + String.format(ROUND_BANNER_MESSAGE, roundNumber));
@@ -230,7 +223,7 @@ public class GameController {
     }
 
     public void addCharacter(Character characterToAdd) {
-        characters.add(characterToAdd);
+        this.board.addCharacter(characterToAdd);
     }
 
     public void addCharacters(Character... charactersToAdd) {

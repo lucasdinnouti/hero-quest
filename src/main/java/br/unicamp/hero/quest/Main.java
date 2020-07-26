@@ -14,7 +14,7 @@ import java.net.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        final Hero igor = new Barbarian(2, 1, "Igor");
+        final Hero igor = new Barbarian(15, 4, "Igor");
 
         final Enemy goblin = new Goblin(2, 10, "Gilberto");
         final Enemy skeleton = new Skeleton(15, 1, "Selton");
@@ -28,10 +28,11 @@ public class Main {
         final BoardFactory boardFactory = new FileBoardFactory(filePath);
         final KeyboardInputService keyboardInputService = new KeyboardInputService(System.in);
         final RenderService renderService = new TerminalRenderService();
-        GameController gameController = new GameController(igor, boardFactory, keyboardInputService, renderService);
 
+        GameController gameController = new GameController(boardFactory, keyboardInputService, renderService);
         gameController.addCharacters(igor, goblin, skeleton, skeletonMage);
         gameController.startGame();
+
         renderService.displayMessage(" ".repeat(30) + "ROUND OVER");
     }
 }

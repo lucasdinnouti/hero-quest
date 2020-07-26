@@ -38,6 +38,10 @@ public class Board {
         this.characters.add(character);
     }
 
+    public List<Character> getCharacters() {
+        return Collections.unmodifiableList(this.characters);
+    }
+
     public Optional<Character> getCharacter(Point point) {
         return this.getCharacter(point.getX(), point.getY());
     }

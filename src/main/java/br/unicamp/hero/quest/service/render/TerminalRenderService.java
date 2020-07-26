@@ -3,15 +3,24 @@ package br.unicamp.hero.quest.service.render;
 import br.unicamp.hero.quest.model.*;
 import br.unicamp.hero.quest.model.board.*;
 import br.unicamp.hero.quest.model.characters.Character;
+import br.unicamp.hero.quest.model.characters.enemy.*;
 import br.unicamp.hero.quest.service.*;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.*;
 
 public class TerminalRenderService implements RenderService {
 
     public static final int CONTENT_WIDTH = 80;
+    private static final Map<Class<?>, String> displayByClass;
+
+    static {
+         displayByClass = Map.of(
+             SkeletonMage.class, "⠖⠿",
+             Skeleton.class, "⠱⠎",
+             Goblin.class, "⠳⠞"
+         );
+    }
 
     @Override
     public void render(Board board) {
@@ -22,7 +31,10 @@ public class TerminalRenderService implements RenderService {
             IntStream.range(0, board.getSizeX()).mapToObj(x -> {
                 Optional<Character> character = board.getCharacter(x, y);
                 if (visible.stream().anyMatch(point -> point.getY() == y && point.getX() == x)) {
-                    return character.isPresent() ? "HR" : "  ";
+                    character.ifPresent(it -> System.out.println(it.getName()));
+                    return character.isPresent()
+                        ? displayByClass.getOrDefault(character.get().getClass(), "HR")
+                        : "  ";
                 }
 
                 final TileType tile = board.getTile(x, y);
