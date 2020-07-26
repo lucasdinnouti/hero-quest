@@ -4,6 +4,9 @@ import br.unicamp.hero.quest.constant.*;
 import br.unicamp.hero.quest.model.*;
 
 import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class PositionUtils {
 
@@ -53,5 +56,19 @@ public class PositionUtils {
         }
 
         return directions;
+    }
+
+    public static ArrayList<Point> surroundingsOf(Point point, int radius) {
+        ArrayList<Point> result = new ArrayList<>();
+
+        for (int i = -radius; i < radius; i++) {
+            for (int j = -radius; j < radius; j++) {
+                if (Math.abs(i) + Math.abs(j) < radius) {
+                    result.add(new Point(i, j));
+                }
+            }
+        }
+
+        return result;
     }
 }

@@ -164,7 +164,7 @@ public class GameController {
             displayInformation("Executing " + inputService.getLastCommand().name());
             switch (inputService.getLastCommand()) {
                 case SCAVENGE:
-                    scavengeService.pickStuff(character);
+                    scavengeService.scavenge(character);
                     validAction = true;
                     break;
                 case CAST_SPELL:

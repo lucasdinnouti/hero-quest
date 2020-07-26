@@ -30,4 +30,8 @@ public abstract class Hero extends Character {
             .findFirst()
             .map(it -> (Weapon) it);
     }
+
+    public void addAction(Action action) {
+        this.actions.add(action);
+    }
 }
