@@ -215,7 +215,12 @@ public class GameController {
         renderService.render(board);
     }
 
-    public void addCharacter(Character character) {
-        characters.add(character);
+    public void addCharacter(Character characterToAdd) {
+        characters.add(characterToAdd);
+    }
+    public void addCharacters(Character ... charactersToAdd) {
+        for (Character character : charactersToAdd) {
+            addCharacter(character);
+        }
     }
 }

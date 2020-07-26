@@ -5,7 +5,7 @@ import br.unicamp.hero.quest.model.characters.hero.*;
 
 import java.util.*;
 
-public class Skeleton extends Hero {
+public class Skeleton extends Enemy {
     public Skeleton(int x, int y, String name) {
         super(3, 2, 8, 2, new ArrayList<>() {{
             this.add(
