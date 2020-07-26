@@ -1,7 +1,5 @@
 package br.unicamp.hero.quest.model;
 
-import java.util.*;
-
 public class Point {
     private int x, y;
 

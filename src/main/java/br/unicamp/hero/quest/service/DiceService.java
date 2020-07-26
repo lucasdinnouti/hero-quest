@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 
 public class DiceService {
     public static int rollDie(int faces) {
-        return new Random().nextInt(faces);
+        return new Random().nextInt(faces) + 1;
     }
 
     public static int rollDice(int amount, int faces) {

@@ -1,13 +1,14 @@
 package br.unicamp.hero.quest.model.characters;
 
 import br.unicamp.hero.quest.model.*;
-import br.unicamp.hero.quest.model.actions.Action;
 import br.unicamp.hero.quest.model.actions.spell.*;
 import br.unicamp.hero.quest.model.actions.weapon.*;
 
 import java.util.*;
 
 public abstract class Character {
+    private final String name;
+
     private final int attack;
     private final int defense;
     private final int iq;
@@ -17,13 +18,14 @@ public abstract class Character {
 
     private final Point position;
 
-    public Character(int attack, int defense, int hp, int iq, int x, int y) {
+    public Character(int attack, int defense, int hp, int iq, int x, int y, String name) {
         this.attack = attack;
         this.defense = defense;
         this.maxHp = hp;
         this.hp = hp;
         this.iq = iq;
         this.position = new Point(x, y);
+        this.name = name;
     }
 
     public int getAttack() {
@@ -64,6 +66,11 @@ public abstract class Character {
         this.position.setY(point.getY());
     }
 
+    public String getName() {
+        return name;
+    }
+
     public abstract Optional<Weapon> getWeaponAction();
+
     public abstract Optional<Spell> getSpellAction();
 }

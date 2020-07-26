@@ -5,6 +5,7 @@ import br.unicamp.hero.quest.model.board.*;
 import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.service.*;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.*;
 
