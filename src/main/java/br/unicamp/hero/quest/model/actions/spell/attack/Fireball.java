@@ -35,4 +35,9 @@ public class Fireball extends AttackSpell {
             }
         };
     }
+
+    @Override
+    public String toString() {
+        return "Fireball";
+    }
 }

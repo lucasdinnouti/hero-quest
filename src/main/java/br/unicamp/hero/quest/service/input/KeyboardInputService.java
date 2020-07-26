@@ -58,12 +58,6 @@ public class KeyboardInputService implements InputService {
 
     @Override
     public String getChoice(Set<String> options) {
-        if (options.size() == 1) {
-            for (String option : options) {
-                return option;
-            }
-        }
-
         System.out.println("Choose one: [" + String.join(", ", options) + "]");
 
         String choice = scanner.nextLine();

@@ -12,4 +12,9 @@ public abstract class Spell implements Action {
     }
 
     protected abstract void cast(Character source, Character target);
+
+    @Override
+    public boolean isDisposable() {
+        return true;
+    }
 }

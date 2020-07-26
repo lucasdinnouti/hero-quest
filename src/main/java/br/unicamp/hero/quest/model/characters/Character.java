@@ -1,8 +1,7 @@
 package br.unicamp.hero.quest.model.characters;
 
 import br.unicamp.hero.quest.model.*;
-import br.unicamp.hero.quest.model.actions.spell.*;
-import br.unicamp.hero.quest.model.actions.weapon.*;
+import br.unicamp.hero.quest.model.actions.Action;
 
 import java.util.*;
 
@@ -70,9 +69,13 @@ public abstract class Character {
         return name;
     }
 
-    public abstract Optional<Weapon> getWeaponAction();
+    public abstract List<Action> getWeaponAction();
 
-    public abstract Optional<Spell> getSpellAction();
+    public abstract List<Action> getSpellAction();
 
     public abstract int getDefenseChance();
+
+    public abstract void addAction(Action action);
+
+    public abstract void loseAction(Action action);
 }
