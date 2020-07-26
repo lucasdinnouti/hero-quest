@@ -39,7 +39,7 @@ public class InterfaceText {
 
     public static final String ROUND_BANNER_MESSAGE = ANSI_GREEN + "ROUND %d" + ANSI_RESET;
     public static final String CHARACTERS_TURN_MESSAGE = ANSI_GREEN + "%s's turn." + ANSI_RESET;
-    public static final String CONTINUES_CONFIRMATION_MESSAGE = ANSI_GREEN + "Want to quit? (q)" + ANSI_RESET;
+    public static final String CONTINUES_CONFIRMATION_MESSAGE = ANSI_GREEN + "Round over, want to quit? (q)" + ANSI_RESET;
 
     public static final String WALK_PHASE_MESSAGE = ANSI_BLUE + "WALKING " + ANSI_RESET;
     public static final String ACTION_PHASE_MESSAGE = ANSI_BLUE + "EXECUTING ACTION" + ANSI_RESET;

@@ -146,6 +146,7 @@ public class GameController {
     private void actionPhase(Character character) {
         boolean validAction = false;
 
+        renderService.displayMessage(ACTION_PHASE_MESSAGE);
         while (!validAction) {
             displayInformation("Executing " + inputService.getLastCommand().name());
             switch (inputService.getLastCommand()) {
@@ -175,12 +176,11 @@ public class GameController {
      * Note that, for an invalid command what is going to happen is that walkPhase will be ended.
      * This may seem like a mistake if you're trying to move and misses a command, but fits in the
      * behavior designed which is: for a command which is not walking, an action should be tried.
-     *
-     * @param character
      */
     private void walkPhase(Character character) {
         Command command = inputService.getLastCommand();
 
+        renderService.displayMessage(WALK_PHASE_MESSAGE);
         movementController.startWalkPhase(character);
         while (command.isWalkCommand()) {
             try {
