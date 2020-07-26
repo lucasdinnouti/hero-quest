@@ -1,22 +1,20 @@
-package br.unicamp.hero.quest.service;
+package br.unicamp.hero.quest.service.action;
 
 import br.unicamp.hero.quest.model.actions.spell.defense.*;
 import br.unicamp.hero.quest.model.board.*;
 import br.unicamp.hero.quest.model.characters.Character;
-import br.unicamp.hero.quest.service.input.*;
+import br.unicamp.hero.quest.service.*;
 import br.unicamp.hero.quest.utils.*;
 
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 
-public class ActionService {
+public abstract class ActionService {
     private final Board board;
-    private final InputService inputService;
 
-    public ActionService(Board board, InputService inputService) {
+    protected ActionService(Board board) {
         this.board = board;
-        this.inputService = inputService;
     }
 
     public void castSpell(Character character) {
@@ -28,9 +26,8 @@ public class ActionService {
 
             // Atack Spell
             Map<String, Character> characterMap = this.getVisibleCharacterMap(character, null);
-            String choice = this.inputService.getChoice(characterMap.keySet());
-            Character target = characterMap.get(choice);
-            spell.execute(character, target);
+            Optional<Character> targetOptional = this.getTarget(characterMap);
+            targetOptional.ifPresent(target -> spell.execute(character, target));
         });
     }
 
@@ -42,19 +39,20 @@ public class ActionService {
                     return distance <= weapon.getDistance();
                 });
 
-            String choice = this.inputService.getChoice(characterMap.keySet());
-            Character target = characterMap.get(choice);
-            weapon.attack(target);
+            Optional<Character> target = this.getTarget(characterMap);
+            target.ifPresent(weapon::attack);
         });
     }
 
-    private Map<String, Character> getVisibleCharacterMap(Character hero, Predicate<Character> filter) {
-        return VisibilityService.getVisible(hero.getPosition(), this.board).stream()
+    private Map<String, Character> getVisibleCharacterMap(Character character, Predicate<Character> filter) {
+        return VisibilityService.getVisible(character.getPosition(), this.board).stream()
             .map(this.board::getCharacter)
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .filter(it -> it != hero)
+            .filter(it -> it != character)
             .filter(it -> filter == null || filter.test(it))
             .collect(Collectors.toMap(Character::toString, it -> it));
     }
+
+    protected abstract Optional<Character> getTarget(Map<String, Character> characterMap);
 }

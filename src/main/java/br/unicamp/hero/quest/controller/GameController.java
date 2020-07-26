@@ -1,6 +1,7 @@
 package br.unicamp.hero.quest.controller;
 
 import br.unicamp.hero.quest.constant.*;
+import static br.unicamp.hero.quest.constant.Command.*;
 import static br.unicamp.hero.quest.constant.InterfaceText.*;
 import br.unicamp.hero.quest.exception.*;
 import br.unicamp.hero.quest.factory.board.*;
@@ -9,6 +10,7 @@ import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.model.characters.enemy.*;
 import br.unicamp.hero.quest.model.characters.hero.*;
 import br.unicamp.hero.quest.service.*;
+import br.unicamp.hero.quest.service.action.*;
 import br.unicamp.hero.quest.service.input.*;
 import br.unicamp.hero.quest.service.render.*;
 import br.unicamp.hero.quest.utils.*;
@@ -20,8 +22,10 @@ public class GameController {
 
     private final InputService inputService;
     private final RenderService renderService;
-    private final ActionService actionService;
     private final ScavengeService scavengeService;
+
+    private final HeroActionService heroActionService;
+    private final EnemyActionService enemyActionService;
 
     ArrayList<Character> characters;
 
@@ -39,7 +43,9 @@ public class GameController {
         this.inputService = inputService;
         this.renderService = renderService;
 
-        this.actionService = new ActionService(board, inputService);
+        this.heroActionService = new HeroActionService(board, inputService);
+        this.enemyActionService = new EnemyActionService(board);
+
         this.scavengeService = new ScavengeService(board);
         this.movementController = new MovementController(new MovementService(board));
 
@@ -66,7 +72,7 @@ public class GameController {
             }
 
             renderService.displayMessage(CONTINUES_CONFIRMATION_MESSAGE);
-        } while (inputService.readCommand() != Command.QUIT);
+        } while (inputService.readCommand() != QUIT);
     }
 
     public void manageRound(Character character) {
@@ -101,8 +107,16 @@ public class GameController {
         }
 
         try {
-            // TODO: Implement mob attack
-            getRandomAction(character);
+            Command command = getRandomAction(character);
+            switch (command) {
+                case ATTACK:
+                    this.enemyActionService.useWeapon(character);
+                    break;
+
+                case CAST_SPELL:
+                    this.enemyActionService.castSpell(character);
+                    break;
+            }
         } catch (Exception ignored) {
         }
 
@@ -118,13 +132,13 @@ public class GameController {
 
     private Command getRandomAction(Character character) {
         if (character instanceof Goblin) {
-            return Command.ATTACK;
+            return ATTACK;
         } else if (character instanceof Skeleton) {
-            return Command.ATTACK;
+            return ATTACK;
         } else if (character instanceof SkeletonMage) {
-            return List.of(Command.ATTACK, Command.CAST_SPELL).get(new Random().nextInt(2));
+            return List.of(ATTACK, CAST_SPELL).get(new Random().nextInt(2));
         } else {
-            return List.of(Command.ATTACK, Command.CAST_SPELL, Command.SCAVENGE).get(new Random().nextInt(3));
+            return List.of(ATTACK, CAST_SPELL, SCAVENGE).get(new Random().nextInt(3));
         }
     }
 
@@ -155,11 +169,11 @@ public class GameController {
                     validAction = true;
                     break;
                 case CAST_SPELL:
-                    this.actionService.castSpell(character);
+                    this.heroActionService.castSpell(character);
                     validAction = true;
                     break;
                 case ATTACK:
-                    this.actionService.useWeapon(character);
+                    this.heroActionService.useWeapon(character);
                     validAction = true;
                     break;
                 case QUIT:
@@ -218,7 +232,8 @@ public class GameController {
     public void addCharacter(Character characterToAdd) {
         characters.add(characterToAdd);
     }
-    public void addCharacters(Character ... charactersToAdd) {
+
+    public void addCharacters(Character... charactersToAdd) {
         for (Character character : charactersToAdd) {
             addCharacter(character);
         }
