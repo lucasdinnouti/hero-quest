@@ -51,7 +51,7 @@ public abstract class ActionService {
             .map(Optional::get)
             .filter(it -> it != character)
             .filter(it -> filter == null || filter.test(it))
-            .collect(Collectors.toMap(Character::toString, it -> it));
+            .collect(Collectors.toMap(Character::getName, it -> it));
     }
 
     protected abstract Optional<Character> getTarget(Map<String, Character> characterMap);

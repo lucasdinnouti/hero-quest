@@ -26,7 +26,7 @@ public class MovementController {
             movementService.moveCharacter(character, direction);
             stepsByCharacter.put(character, stepsRemaining - 1);
         } else {
-            throw new LackOfStepsException(String.format(LACK_OF_STEPS_MESSAGE, character.toString()));
+            throw new LackOfStepsException(String.format(LACK_OF_STEPS_MESSAGE, character.getName()));
         }
     }
 
