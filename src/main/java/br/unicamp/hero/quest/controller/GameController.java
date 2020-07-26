@@ -1,18 +1,28 @@
 package br.unicamp.hero.quest.controller;
 
-import br.unicamp.hero.quest.constant.*;
-import br.unicamp.hero.quest.exception.*;
-import br.unicamp.hero.quest.factory.board.*;
-import br.unicamp.hero.quest.model.board.*;
+import br.unicamp.hero.quest.constant.Command;
+import br.unicamp.hero.quest.constant.Direction;
+import br.unicamp.hero.quest.exception.MoveException;
+import br.unicamp.hero.quest.factory.board.BoardFactory;
+import br.unicamp.hero.quest.model.board.Board;
 import br.unicamp.hero.quest.model.characters.Character;
-import br.unicamp.hero.quest.model.characters.hero.*;
-import br.unicamp.hero.quest.service.*;
-import br.unicamp.hero.quest.service.input.*;
-import br.unicamp.hero.quest.service.render.*;
-import br.unicamp.hero.quest.utils.*;
+import br.unicamp.hero.quest.model.characters.enemy.Goblin;
+import br.unicamp.hero.quest.model.characters.enemy.Skeleton;
+import br.unicamp.hero.quest.model.characters.enemy.SkeletonMage;
+import br.unicamp.hero.quest.model.characters.hero.Hero;
+import br.unicamp.hero.quest.service.ActionService;
+import br.unicamp.hero.quest.service.MovementService;
+import br.unicamp.hero.quest.service.ScavengeService;
+import br.unicamp.hero.quest.service.input.InputService;
+import br.unicamp.hero.quest.service.render.RenderService;
+import br.unicamp.hero.quest.utils.PositionUtils;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.Random;
 
-import static br.unicamp.hero.quest.constant.InterfaceText.QUIT_COMMAND;
-import static br.unicamp.hero.quest.constant.InterfaceText.UNKNOWN_ACTION_MESSAGE;
+import static br.unicamp.hero.quest.constant.InterfaceText.*;
 
 public class GameController {
     private final Board board;
@@ -21,6 +31,8 @@ public class GameController {
     private final RenderService renderService;
     private final ActionService actionService;
     private final ScavengeService scavengeService;
+
+    ArrayList<Character> characters;
 
     MovementController movementController;
 
@@ -39,7 +51,31 @@ public class GameController {
         this.scavengeService = new ScavengeService(board);
         this.movementController = new MovementController(new MovementService(board));
 
+        characters = new ArrayList<>();
+
         renderService.render(board);
+    }
+
+    public void startGame() {
+
+        if (characters.isEmpty()) {
+            renderService.displayMessage(NO_CHARACTERS_MESSAGE);
+            return;
+        }
+
+        int roundNumber = 0;
+
+        do {
+            roundNumber++;
+            renderService.displayMessage(" ".repeat(31) + String.format(ROUND_BANNER_MESSAGE, roundNumber));
+
+            for (Character character : characters) {
+                renderService.displayMessage(String.format(CHARACTERS_TURN_MESSAGE, character.getName()));
+                manageRound(character);
+            }
+
+            renderService.displayMessage(CONTINUES_CONFIRMATION_MESSAGE);
+        } while (inputService.readCommand() != Command.QUIT);
     }
 
     public void manageRound(Character character) {
@@ -54,11 +90,41 @@ public class GameController {
         movementController.startWalkPhase(character);
 
         try {
-            movementController.walk(character, PositionUtils.randomDirection());
-        } catch (Exception ignored) {
-        }
+            List<Direction> directions = new ArrayList<>(
+                character instanceof Goblin ?
+                PositionUtils.directionsToPoint(character.getPosition(), board.getHero().getPosition()) :
+                PositionUtils.allDirections
+            );
+
+            boolean couldMove = false;
+            while (!couldMove && directions.size() > 0) {
+                try {
+                    movementController.walk(character, PositionUtils.randomDirection());
+                    couldMove = true;
+                } catch (MoveException e) {
+                    directions.remove(0);
+                    renderService.displayMessage(e.getMessage());
+                }
+            }
+        } catch (Exception ignored) { }
+
+        try {
+            actionService.doStuff(character, getRandomAction(character));
+        } catch (Exception ignored) { }
 
         movementController.endWalkPhase(character);
+    }
+
+    private Command getRandomAction(Character character) {
+        if (character instanceof Goblin ) {
+            return Command.ATTACK;
+        } else if (character instanceof Skeleton) {
+            return Command.ATTACK;
+        } else if (character instanceof SkeletonMage) {
+            return List.of(Command.ATTACK, Command.CAST_SPELL).get(new Random().nextInt(2));
+        } else {
+            return List.of(Command.ATTACK, Command.CAST_SPELL, Command.SCAVENGE).get(new Random().nextInt(3));
+        }
     }
 
     private void managePlayerRound(Character character) {
@@ -113,49 +179,6 @@ public class GameController {
             displayInformation(String.format("Remaining steps: %d", movementController.remainingSteps(character)));
             command = inputService.readCommand();
         }
-    }
-
-    private void managePlayerRoundOld(Character character) {
-        Command command = inputService.readCommand();
-
-        movementController.startWalkPhase(character);
-
-        boolean acted = false;
-
-        while (command != Command.QUIT) {
-            switch (command) {
-                case MOVE_DOWN:
-                case MOVE_UP:
-                case MOVE_LEFT:
-                case MOVE_RIGHT:
-                    try {
-                        movementController.walk(character, directionFromCommand(command));
-                    } catch (MoveException e) {
-                        renderService.displayMessage(e.getMessage());
-                    }
-                    break;
-
-                case SCAVENGE:
-                    if (!acted) {
-                        scavengeService.pickStuff(character);
-                    }
-                    acted = true;
-                    break;
-
-                case CAST_SPELL:
-                case ATTACK:
-                    if (!acted) {
-                        actionService.doStuff(character, command);
-                    }
-                    acted = true;
-                    break;
-
-                default:
-                    renderService.displayMessage("Command not available");
-            }
-            displayInformation(String.format("Remaining steps: %d", movementController.remainingSteps(character)));
-            command = inputService.readCommand();
-        }
         movementController.endWalkPhase(character);
     }
 
@@ -177,5 +200,9 @@ public class GameController {
     private void displayInformation(String message) {
         renderService.displayMessage(message);
         renderService.render(board);
+    }
+
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 }

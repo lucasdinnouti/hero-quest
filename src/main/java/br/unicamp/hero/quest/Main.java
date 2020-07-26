@@ -20,12 +20,10 @@ public class Main {
         final BoardFactory boardFactory = new StaticBoardFactory(filePath);
         final KeyboardInputService keyboardInputService = new KeyboardInputService(System.in);
         final RenderService renderService = new TerminalRenderService();
-        GameController gameController = new GameController(hero, boardFactory, keyboardInputService, renderService);
+        GameController gameController = new GameController(igor, boardFactory, keyboardInputService, renderService);
 
-        while (true) {
-            gameController.manageRound(hero);
-
-            renderService.displayMessage(" ".repeat(30) + "ROUND OVER");
-        }
+        gameController.addCharacter(igor);
+        gameController.startGame();
+        renderService.displayMessage(" ".repeat(30) + "ROUND OVER");
     }
 }

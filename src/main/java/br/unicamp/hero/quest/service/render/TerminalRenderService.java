@@ -3,6 +3,7 @@ package br.unicamp.hero.quest.service.render;
 import br.unicamp.hero.quest.model.*;
 import br.unicamp.hero.quest.model.board.*;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
