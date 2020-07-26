@@ -39,7 +39,7 @@ public class Board {
     }
 
     public List<Character> getCharacters() {
-        return Collections.unmodifiableList(this.characters);
+        return this.characters;
     }
 
     public Optional<Character> getCharacter(Point point) {
