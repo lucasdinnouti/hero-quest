@@ -17,6 +17,7 @@ import br.unicamp.hero.quest.service.input.InputService;
 import br.unicamp.hero.quest.service.render.RenderService;
 import br.unicamp.hero.quest.utils.PositionUtils;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -91,10 +92,12 @@ public class GameController {
         movementController.startWalkPhase(character);
 
         try {
+
+
             List<Direction> directions = new ArrayList<>(
                 character instanceof Goblin ?
                 PositionUtils.directionsToPoint(character.getPosition(), board.getHero().getPosition()) :
-                PositionUtils.allDirections
+                shuffledDirections()
             );
 
             boolean couldMove = false;
@@ -114,6 +117,13 @@ public class GameController {
         } catch (Exception ignored) { }
 
         movementController.endWalkPhase(character);
+    }
+
+    private ArrayList<Direction> shuffledDirections() {
+        ArrayList<Direction> shuffledDirections = new ArrayList<>(PositionUtils.allDirections);
+        Collections.shuffle(shuffledDirections);
+
+        return shuffledDirections;
     }
 
     private Command getRandomAction(Character character) {
