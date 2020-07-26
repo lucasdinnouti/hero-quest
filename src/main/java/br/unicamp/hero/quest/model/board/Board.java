@@ -64,6 +64,10 @@ public class Board {
         return this.getTile(point) == TileType.WALL;
     }
 
+    public boolean isDoor(Point point) {
+        return this.getTile(point) == TileType.DOOR;
+    }
+
     public List<Point> getEdges() {
         return edges;
     }

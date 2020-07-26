@@ -13,6 +13,7 @@ public class TerminalRenderService implements RenderService {
 
     public static final int CONTENT_WIDTH = 80;
     private static final Map<Class<?>, String> displayByClass;
+    private static final Map<TileType, String> displayByTileType;
 
     static {
          displayByClass = Map.of(
@@ -20,6 +21,12 @@ public class TerminalRenderService implements RenderService {
              Skeleton.class, "⠱⠎",
              Goblin.class, "⠳⠞"
          );
+
+        displayByTileType = Map.of(
+            TileType.DOOR, "  ",
+            TileType.WALL, "XX",
+            TileType.PATH, "  "
+        );
     }
 
     @Override
@@ -29,15 +36,14 @@ public class TerminalRenderService implements RenderService {
 
         final String map = IntStream.range(0, board.getSizeY()).mapToObj(y ->
             IntStream.range(0, board.getSizeX()).mapToObj(x -> {
+                final TileType tile = board.getTile(x, y);
                 Optional<Character> character = board.getCharacter(x, y);
                 if (visible.stream().anyMatch(point -> point.getY() == y && point.getX() == x)) {
-                    character.ifPresent(it -> System.out.println(it.getName()));
                     return character.isPresent()
                         ? displayByClass.getOrDefault(character.get().getClass(), "HR")
-                        : "  ";
+                        : displayByTileType.get(tile);
                 }
 
-                final TileType tile = board.getTile(x, y);
                 if (tile == TileType.PATH) {
                     return "::";
                 }
@@ -51,7 +57,7 @@ public class TerminalRenderService implements RenderService {
                     );
 
                 if (isVisible) {
-                    return "XX";
+                    return displayByTileType.get(tile);
                 }
 
                 return "::";

@@ -16,7 +16,7 @@ public class VisibilityService {
         final Function<Point, List<Point>> bresenhanCurry = bresenhamLine(center);
         return board.getEdges().stream()
             .map(bresenhanCurry)
-            .flatMap(ray -> ray.stream().takeWhile(point -> !board.isWall(point)))
+            .flatMap(ray -> ray.stream().takeWhile(point -> canRayContinue(board, center, point)))
             .collect(Collectors.toList());
     }
 
@@ -70,5 +70,9 @@ public class VisibilityService {
 
             return points;
         };
+    }
+
+    private static boolean canRayContinue(Board board, Point center, Point current) {
+        return (!board.isWall(current) && !board.isDoor(current)) || current.equals(center);
     }
 }

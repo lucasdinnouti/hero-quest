@@ -43,6 +43,10 @@ public class FileBoardFactory implements BoardFactory {
             return TileType.WALL;
         }
 
+        if ("UU".equals(s)) {
+            return TileType.DOOR;
+        }
+
         return TileType.PATH;
     }
 }
