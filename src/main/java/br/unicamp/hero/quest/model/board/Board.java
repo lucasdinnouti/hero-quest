@@ -88,6 +88,10 @@ public class Board {
     }
 
     public boolean canMove(Point point) {
+        if (!this.isInsideBoard(point)) {
+            return false;
+        }
+
         final TileType tile = this.getTile(point);
         if (tile == TileType.WALL) {
             return false;
@@ -95,5 +99,9 @@ public class Board {
 
         final Optional<Character> character = this.getCharacter(point);
         return character.isEmpty();
+    }
+
+    private boolean isInsideBoard(Point point) {
+        return point.getX() > 0 && point.getY() > 0 && point.getX() < sizeX && point.getY() < sizeY;
     }
 }

@@ -35,4 +35,8 @@ public abstract class Hero extends Character {
     public int getDefenseChance() {
         return 2;
     }
+
+    public void addAction(Action action) {
+        this.actions.add(action);
+    }
 }

@@ -33,7 +33,7 @@ public class InterfaceText {
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     public static final String LACK_OF_STEPS_MESSAGE = ANSI_RED + "Character %s can not move, as their steps ran over." + ANSI_RESET;
-    public static final String OCCUPIED_POSITION_MESSAGE = ANSI_RED + "Character %s can not move, as position %s is occupied." + ANSI_RESET;
+    public static final String INVALID_POSITION_MESSAGE = ANSI_RED + "Character %s can not move, as position %s is invalid." + ANSI_RESET;
     public static final String UNKNOWN_ACTION_MESSAGE = ANSI_RED + "No action associated, may want to quit (%s)" + ANSI_RESET;
     public static final String NO_CHARACTERS_MESSAGE = ANSI_RED + "No characters added, cant run the game." + ANSI_RESET;
 
