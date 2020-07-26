@@ -1,11 +1,9 @@
 package br.unicamp.hero.quest.service.input;
 
-import br.unicamp.hero.quest.constant.Command;
-import br.unicamp.hero.quest.constant.InterfaceText;
-import br.unicamp.hero.quest.service.input.*;
+import br.unicamp.hero.quest.constant.*;
 
-import java.io.InputStream;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 public class KeyboardInputService implements InputService {
 
@@ -47,7 +45,7 @@ public class KeyboardInputService implements InputService {
                 lastCommand = Command.QUIT;
                 break;
             default:
-                lastCommand =  Command.INVALID;
+                lastCommand = Command.INVALID;
         }
 
         return lastCommand;
@@ -56,6 +54,19 @@ public class KeyboardInputService implements InputService {
     @Override
     public Command getLastCommand() {
         return lastCommand;
+    }
+
+    @Override
+    public String getChoice(Set<String> options) {
+        System.out.println("Choose one: [" + String.join(", ", options) + "]");
+
+        String choice = scanner.nextLine();
+        while (!options.contains(choice)) {
+            System.out.println("Invalid option");
+            choice = scanner.nextLine();
+        }
+
+        return choice;
     }
 }
 

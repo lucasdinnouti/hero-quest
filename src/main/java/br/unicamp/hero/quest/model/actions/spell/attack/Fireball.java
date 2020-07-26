@@ -1,4 +1,4 @@
-package br.unicamp.hero.quest.model.actions.spell;
+package br.unicamp.hero.quest.model.actions.spell.attack;
 
 import br.unicamp.hero.quest.model.*;
 import br.unicamp.hero.quest.model.board.*;
@@ -6,7 +6,7 @@ import br.unicamp.hero.quest.model.characters.Character;
 
 import java.util.function.*;
 
-public class Fireball extends Spell {
+public class Fireball extends AttackSpell {
     private final Board board;
 
     public Fireball(Board board) {

@@ -38,6 +38,10 @@ public class Board {
         this.characters.add(character);
     }
 
+    public Optional<Character> getCharacter(Point point) {
+        return this.getCharacter(point.getX(), point.getY());
+    }
+
     public Optional<Character> getCharacter(int x, int y) {
         return this.characters.stream()
             .filter(it -> it.getPosition().equals(x, y))

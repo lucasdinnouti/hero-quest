@@ -1,6 +1,6 @@
 package br.unicamp.hero.quest.model.characters.hero;
 
-import br.unicamp.hero.quest.model.actions.spell.SimpleHeal;
+import br.unicamp.hero.quest.model.actions.spell.defense.SimpleHeal;
 import br.unicamp.hero.quest.model.actions.weapon.ShortSword;
 import java.util.List;
 

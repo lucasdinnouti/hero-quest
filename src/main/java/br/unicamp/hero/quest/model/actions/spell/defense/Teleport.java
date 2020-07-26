@@ -1,10 +1,10 @@
-package br.unicamp.hero.quest.model.actions.spell;
+package br.unicamp.hero.quest.model.actions.spell.defense;
 
 import br.unicamp.hero.quest.model.*;
 import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.service.*;
 
-public class Teleport extends Spell {
+public class Teleport extends DefenseSpell {
     private final MovementService movementService;
     private final Point destination;
 

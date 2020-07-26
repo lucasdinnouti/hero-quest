@@ -1,7 +1,7 @@
 package br.unicamp.hero.quest.model.characters.hero;
 
-import br.unicamp.hero.quest.model.actions.spell.MagicMissile;
-import br.unicamp.hero.quest.model.actions.spell.Fireball;
+import br.unicamp.hero.quest.model.actions.spell.attack.MagicMissile;
+
 import java.util.List;
 
 public class Mage extends Hero {

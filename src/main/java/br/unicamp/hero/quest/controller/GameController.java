@@ -1,6 +1,7 @@
 package br.unicamp.hero.quest.controller;
 
 import br.unicamp.hero.quest.constant.*;
+import static br.unicamp.hero.quest.constant.InterfaceText.*;
 import br.unicamp.hero.quest.exception.*;
 import br.unicamp.hero.quest.factory.board.*;
 import br.unicamp.hero.quest.model.board.*;
@@ -10,9 +11,6 @@ import br.unicamp.hero.quest.service.*;
 import br.unicamp.hero.quest.service.input.*;
 import br.unicamp.hero.quest.service.render.*;
 import br.unicamp.hero.quest.utils.*;
-
-import static br.unicamp.hero.quest.constant.InterfaceText.QUIT_COMMAND;
-import static br.unicamp.hero.quest.constant.InterfaceText.UNKNOWN_ACTION_MESSAGE;
 
 public class GameController {
     private final Board board;
@@ -36,7 +34,7 @@ public class GameController {
         this.inputService = inputService;
         this.renderService = renderService;
 
-        this.actionService = new ActionService(board);
+        this.actionService = new ActionService(board, inputService);
         this.scavengeService = new ScavengeService(board);
         this.movementController = new MovementController(new MovementService(board));
 
@@ -88,8 +86,11 @@ public class GameController {
                     validAction = true;
                     break;
                 case CAST_SPELL:
+                    this.actionService.castSpell(character);
+                    validAction = true;
+                    break;
                 case ATTACK:
-                    actionService.doStuff(character, inputService.getLastCommand());
+                    this.actionService.useWeapon(character);
                     validAction = true;
                     break;
                 case QUIT:
@@ -146,7 +147,7 @@ public class GameController {
                 case CAST_SPELL:
                 case ATTACK:
                     if (!acted) {
-                        actionService.doStuff(character, command);
+                        // actionService.doStuff(character, command);
                     }
                     acted = true;
                     break;

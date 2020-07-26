@@ -1,9 +1,9 @@
-package br.unicamp.hero.quest.model.actions.spell;
+package br.unicamp.hero.quest.model.actions.spell.attack;
 
 import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.service.*;
 
-public class MagicMissile extends Spell {
+public class MagicMissile extends AttackSpell {
     @Override
     public void execute(Character source, Character target) {
         for (int i = 0; i < 3; i++) {

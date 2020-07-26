@@ -1,7 +1,7 @@
 package br.unicamp.hero.quest.model.characters.enemy;
 
 import br.unicamp.hero.quest.model.actions.Action;
-import br.unicamp.hero.quest.model.actions.spell.MagicMissile;
+import br.unicamp.hero.quest.model.actions.spell.attack.MagicMissile;
 import br.unicamp.hero.quest.model.characters.hero.Hero;
 import java.util.ArrayList;
 

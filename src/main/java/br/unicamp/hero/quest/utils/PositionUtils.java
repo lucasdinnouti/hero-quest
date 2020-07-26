@@ -21,4 +21,8 @@ public class PositionUtils {
     public static Direction randomDirection() {
         return allDirections.get(new Random().nextInt(allDirections.size()));
     }
+
+    public static int manhattanDistance(Point p1, Point p2) {
+        return Math.abs(p1.getX() - p2.getX()) + Math.abs(p1.getY() - p2.getY());
+    }
 }

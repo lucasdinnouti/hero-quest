@@ -2,6 +2,10 @@ package br.unicamp.hero.quest.model.characters;
 
 import br.unicamp.hero.quest.model.*;
 import br.unicamp.hero.quest.model.actions.Action;
+import br.unicamp.hero.quest.model.actions.spell.*;
+import br.unicamp.hero.quest.model.actions.weapon.*;
+
+import java.util.*;
 
 public abstract class Character {
     private final int attack;
@@ -60,5 +64,6 @@ public abstract class Character {
         this.position.setY(point.getY());
     }
 
-    public abstract Action getRoundAction();
+    public abstract Optional<Weapon> getWeaponAction();
+    public abstract Optional<Spell> getSpellAction();
 }

@@ -1,8 +1,11 @@
 package br.unicamp.hero.quest.model.characters.hero;
 
 import br.unicamp.hero.quest.model.actions.Action;
+import br.unicamp.hero.quest.model.actions.spell.*;
+import br.unicamp.hero.quest.model.actions.weapon.*;
 import br.unicamp.hero.quest.model.characters.Character;
-import java.util.List;
+
+import java.util.*;
 
 public abstract class Hero extends Character {
     private final List<Action> actions;
@@ -13,7 +16,18 @@ public abstract class Hero extends Character {
     }
 
     @Override
-    public Action getRoundAction() {
-        return this.actions.get(0);
+    public Optional<Spell> getSpellAction() {
+        return this.actions.stream()
+            .filter(it -> it instanceof Spell)
+            .findFirst()
+            .map(it -> (Spell) it);
+    }
+
+    @Override
+    public Optional<Weapon> getWeaponAction() {
+        return this.actions.stream()
+            .filter(it -> it instanceof Spell)
+            .findFirst()
+            .map(it -> (Weapon) it);
     }
 }

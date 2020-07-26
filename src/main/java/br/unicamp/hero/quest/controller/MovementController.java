@@ -20,7 +20,7 @@ public class MovementController {
     }
 
     public void walk(Character character, Direction direction) {
-        int stepsRemaining = stepsByCharacter.getOrDefault(character,  -1);
+        int stepsRemaining = stepsByCharacter.getOrDefault(character, -1);
 
         if (stepsRemaining > 0) {
             movementService.moveCharacter(character, direction);
