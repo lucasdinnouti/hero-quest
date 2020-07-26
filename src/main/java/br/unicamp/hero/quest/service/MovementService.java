@@ -10,8 +10,7 @@ import br.unicamp.hero.quest.utils.PositionUtils;
 import static br.unicamp.hero.quest.constant.InterfaceText.OCCUPIED_POSITION_MESSAGE;
 
 public class MovementService {
-
-    Board board;
+    private final Board board;
 
     public MovementService(Board board) {
         this.board = board;
@@ -19,19 +18,17 @@ public class MovementService {
 
     public void moveCharacter(Character character, Direction direction) {
         Point newPosition = PositionUtils.plusDirection(character.getPosition(), direction);
-
-//        if (!board.canMove(newPosition)) {
-//            throw new OccupiedPositionException(String.format(OCCUPIED_POSITION_MESSAGE, character.toString(), newPosition.toString()));
-//        }
+        if (!board.canMove(newPosition)) {
+            throw new OccupiedPositionException(String.format(OCCUPIED_POSITION_MESSAGE, character.getName(), newPosition.toString()));
+        }
 
         character.setPosition(newPosition);
     }
 
     public void moveCharacter(Character character, Point position) {
-
-//        if (!board.canMove(position)) {
-//            throw new OccupiedPositionException(String.format(OCCUPIED_POSITION_MESSAGE, character.toString(), position.toString()));
-//        }
+        if (!board.canMove(position)) {
+            throw new OccupiedPositionException(String.format(OCCUPIED_POSITION_MESSAGE, character.getName(), position.toString()));
+        }
 
         character.setPosition(position);
     }

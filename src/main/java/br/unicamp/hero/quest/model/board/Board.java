@@ -86,4 +86,14 @@ public class Board {
     public int getSizeY() {
         return sizeY;
     }
+
+    public boolean canMove(Point point) {
+        final TileType tile = this.getTile(point);
+        if (tile == TileType.WALL) {
+            return false;
+        }
+
+        final Optional<Character> character = this.getCharacter(point);
+        return character.isEmpty();
+    }
 }
