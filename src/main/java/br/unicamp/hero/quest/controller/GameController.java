@@ -35,6 +35,7 @@ public class GameController {
         RenderService renderService
     ) {
         this.board = boardFactory.getBoard();
+        ActionFactories.createInstance(this.board);
 
         this.inputService = inputService;
         this.renderService = renderService;

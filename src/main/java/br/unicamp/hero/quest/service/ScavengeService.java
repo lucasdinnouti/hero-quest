@@ -13,7 +13,8 @@ import br.unicamp.hero.quest.model.characters.enemy.Goblin;
 import br.unicamp.hero.quest.model.characters.enemy.Skeleton;
 import br.unicamp.hero.quest.model.characters.enemy.SkeletonMage;
 import br.unicamp.hero.quest.model.characters.hero.Hero;
-import br.unicamp.hero.quest.utils.PositionUtils;
+import br.unicamp.hero.quest.utils.*;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -42,21 +43,22 @@ public class ScavengeService {
             Optional<ScavengeItem> something = isThereSomething();
 
             if (something.isPresent()) {
+                ActionFactories factories = ActionFactories.getInstance();
                 switch (something.get()) {
                     case DAGGER:
-                        ((Hero) character).addAction(new Dagger());
+                        ((Hero) character).addAction(factories.DAGGER_FACTORY.get());
                         break;
                     case LONG_SWORD:
-                        ((Hero) character).addAction(new LongSword());
+                        ((Hero) character).addAction(factories.LONG_SWORD_FACTORY.get());
                         break;
                     case SHORT_SWORD:
-                        ((Hero) character).addAction(new ShortSword());
+                        ((Hero) character).addAction(factories.SHORT_SWORD_FACTORY.get());
                         break;
                     case MAGIC_MISSILE:
-                        ((Hero) character).addAction(new MagicMissile());
+                        ((Hero) character).addAction(factories.MAGIC_MISSILE_FACTORY.get());
                         break;
                     case FIREBALL:
-                        ((Hero) character).addAction(new Fireball(board));
+                        ((Hero) character).addAction(factories.FIREBALL_FACTORY.get());
                         break;
                     case GOBLIN:
                         board.addCharacter(new Goblin(point.getX(), point.getY(), generateName()));

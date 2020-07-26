@@ -27,7 +27,6 @@ public abstract class Weapon implements Action {
         final int attack = DiceService.rollDice(source.getAttack() + this.getAttack(), 6, 3);
         final int defense = DiceService.rollDice(target.getDefense(), 6, target.getDefenseChance());
 
-        System.out.println("Attack: " + Math.max(0, attack - defense));
         target.setHp(target.getHp() - Math.max(0, attack - defense));
     }
 }
