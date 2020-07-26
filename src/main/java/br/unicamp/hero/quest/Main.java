@@ -10,7 +10,7 @@ import java.net.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        final Hero hero = new Barbarian(2, 1);
+        final Hero igor = new Barbarian(2, 1, "Igor");
 
         final URL filePath = Main.class.getClassLoader().getResource("map.txt");
         if (filePath == null) {
