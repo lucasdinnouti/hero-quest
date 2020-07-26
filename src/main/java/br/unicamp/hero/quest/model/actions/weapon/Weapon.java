@@ -2,6 +2,7 @@ package br.unicamp.hero.quest.model.actions.weapon;
 
 import br.unicamp.hero.quest.model.actions.*;
 import br.unicamp.hero.quest.model.characters.Character;
+import br.unicamp.hero.quest.service.*;
 
 public abstract class Weapon implements Action {
 
@@ -23,8 +24,10 @@ public abstract class Weapon implements Action {
 
     @Override
     public void execute(Character source, Character target) {
-        this.attack(target);
-    }
+        final int attack = DiceService.rollDice(source.getAttack() + this.getAttack(), 6, 3);
+        final int defense = DiceService.rollDice(target.getDefense(), 6, target.getDefenseChance());
 
-    public abstract void attack(Character target);
+        System.out.println("Attack: " + Math.max(0, attack - defense));
+        target.setHp(target.getHp() - Math.max(0, attack - defense));
+    }
 }

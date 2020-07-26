@@ -31,4 +31,9 @@ public abstract class Enemy extends Character {
             .findFirst()
             .map(it -> (Weapon) it);
     }
+
+    @Override
+    public int getDefenseChance() {
+        return 1;
+    }
 }

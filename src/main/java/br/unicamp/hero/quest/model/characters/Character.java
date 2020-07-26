@@ -73,4 +73,6 @@ public abstract class Character {
     public abstract Optional<Weapon> getWeaponAction();
 
     public abstract Optional<Spell> getSpellAction();
+
+    public abstract int getDefenseChance();
 }

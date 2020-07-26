@@ -39,8 +39,8 @@ public abstract class ActionService {
                     return distance <= weapon.getDistance();
                 });
 
-            Optional<Character> target = this.getTarget(characterMap);
-            target.ifPresent(weapon::attack);
+            Optional<Character> targetOptional = this.getTarget(characterMap);
+            targetOptional.ifPresent(target -> weapon.execute(character, target));
         });
     }
 

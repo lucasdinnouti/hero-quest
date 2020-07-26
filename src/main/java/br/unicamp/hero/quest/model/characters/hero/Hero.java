@@ -26,8 +26,13 @@ public abstract class Hero extends Character {
     @Override
     public Optional<Weapon> getWeaponAction() {
         return this.actions.stream()
-            .filter(it -> it instanceof Spell)
+            .filter(it -> it instanceof Weapon)
             .findFirst()
             .map(it -> (Weapon) it);
+    }
+
+    @Override
+    public int getDefenseChance() {
+        return 2;
     }
 }
