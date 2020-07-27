@@ -17,4 +17,9 @@ public class MagicMissile extends AttackSpell {
     protected void cast(Character source, Character target) {
         target.setHp(target.getHp() - 2);
     }
+
+    @Override
+    public String toString() {
+        return "MagicMissile";
+    }
 }

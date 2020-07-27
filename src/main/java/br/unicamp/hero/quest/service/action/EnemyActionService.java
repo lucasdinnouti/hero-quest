@@ -1,5 +1,6 @@
 package br.unicamp.hero.quest.service.action;
 
+import br.unicamp.hero.quest.model.actions.Action;
 import br.unicamp.hero.quest.model.board.*;
 import br.unicamp.hero.quest.model.characters.Character;
 import br.unicamp.hero.quest.model.characters.hero.*;
@@ -19,5 +20,12 @@ public class EnemyActionService extends ActionService {
             .filter(it -> it.getValue() instanceof Hero)
             .findFirst()
             .map(Map.Entry::getValue);
+    }
+
+    @Override
+    protected Optional<Action> chooseAction(Map<String, Action> actionMap) {
+        return actionMap.entrySet().stream()
+                .findFirst()
+                .map(Map.Entry::getValue);
     }
 }

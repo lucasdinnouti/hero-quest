@@ -28,7 +28,7 @@ public class Main {
     }
 
     private static void addCharacters(GameController gameController) {
-        final Hero hero = new Barbarian(15, 4, "Hero");
+        final Hero hero = new Mage(15, 4, "Hero");
         final Enemy goblin = new Goblin(2, 10, "Gilberto");
         final Enemy skeleton = new Skeleton(15, 1, "Selton");
         final Enemy skeletonMage = new SkeletonMage(15, 10, "Selton Mario");

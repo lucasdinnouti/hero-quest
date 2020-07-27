@@ -1,11 +1,10 @@
 package br.unicamp.hero.quest.model.characters.enemy;
 
-import br.unicamp.hero.quest.model.actions.spell.Spell;
+import br.unicamp.hero.quest.model.actions.Action;
 import br.unicamp.hero.quest.model.actions.spell.attack.MagicMissile;
-import br.unicamp.hero.quest.utils.*;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.List;
 
 public class SkeletonMage extends Enemy {
 
@@ -14,7 +13,7 @@ public class SkeletonMage extends Enemy {
     }
 
     @Override
-    public Optional<Spell> getSpellAction() {
-        return Optional.of(ActionFactories.getInstance().MAGIC_MISSILE_FACTORY.get());
+    public List<Action> getSpellAction() {
+        return List.of((Action) new MagicMissile());
     }
 }
