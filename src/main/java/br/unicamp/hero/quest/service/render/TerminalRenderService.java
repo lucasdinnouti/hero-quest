@@ -11,7 +11,6 @@ import java.util.stream.*;
 
 public class TerminalRenderService implements RenderService {
 
-    public static final int CONTENT_WIDTH = 80;
     private static final Map<Class<?>, String> displayByClass;
     private static final Map<TileType, String> displayByTileType;
 
@@ -65,27 +64,5 @@ public class TerminalRenderService implements RenderService {
         ).collect(Collectors.joining("\n"));
 
         System.out.println(map);
-    }
-
-    @Override
-    public void displayMessage(String message) {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("#".repeat(CONTENT_WIDTH));
-        sb.append("\n");
-
-        String[] lines = message.split(String.format("(?<=\\G.{%d})", CONTENT_WIDTH - 4));
-        for (String line : lines) {
-            sb.append("# ");
-            sb.append(line);
-            sb.append(" ".repeat(CONTENT_WIDTH - 4 - line.length()));
-            sb.append(" #");
-            sb.append("\n");
-        }
-
-        sb.append("#".repeat(CONTENT_WIDTH));
-        sb.append("\n");
-
-        System.out.println(sb.toString());
     }
 }

@@ -7,6 +7,7 @@ import br.unicamp.hero.quest.model.characters.hero.*;
 import br.unicamp.hero.quest.service.input.*;
 import br.unicamp.hero.quest.service.render.*;
 
+import br.unicamp.hero.quest.utils.MessageUtils;
 import java.net.*;
 
 public class Main {
@@ -22,9 +23,14 @@ public class Main {
 
         GameController gameController = new GameController(boardFactory, keyboardInputService, renderService);
         addCharacters(gameController);
-        gameController.startGame();
 
-        renderService.displayMessage(" ".repeat(30) + "GAME OVER");
+        try {
+            gameController.startGame();
+        } catch (Exception e) {
+            MessageUtils.displayMessage(String.format("Something wrong happened: %s", e.getMessage()));
+        }
+
+        MessageUtils.displayMessage(" ".repeat(30) + "GAME OVER");
     }
 
     private static void addCharacters(GameController gameController) {

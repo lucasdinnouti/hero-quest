@@ -44,21 +44,22 @@ public class ScavengeService {
 
             if (something.isPresent()) {
                 ActionFactories factories = ActionFactories.getInstance();
+
                 switch (something.get()) {
                     case DAGGER:
-                        ((Hero) character).addAction(factories.DAGGER_FACTORY.get());
+                        character.addAction(factories.DAGGER_FACTORY.get());
                         break;
                     case LONG_SWORD:
-                        ((Hero) character).addAction(factories.LONG_SWORD_FACTORY.get());
+                        character.addAction(factories.LONG_SWORD_FACTORY.get());
                         break;
                     case SHORT_SWORD:
-                        ((Hero) character).addAction(factories.SHORT_SWORD_FACTORY.get());
+                        character.addAction(factories.SHORT_SWORD_FACTORY.get());
                         break;
                     case MAGIC_MISSILE:
-                        ((Hero) character).addAction(factories.MAGIC_MISSILE_FACTORY.get());
+                        character.addAction(factories.MAGIC_MISSILE_FACTORY.get());
                         break;
                     case FIREBALL:
-                        ((Hero) character).addAction(factories.FIREBALL_FACTORY.get());
+                        character.addAction(factories.FIREBALL_FACTORY.get());
                         break;
                     case GOBLIN:
                         board.addCharacter(new Goblin(point.getX(), point.getY(), generateName()));
@@ -70,6 +71,8 @@ public class ScavengeService {
                         board.addCharacter(new SkeletonMage(point.getX(), point.getY(), generateName()));
                         break;
                 }
+
+                MessageUtils.displayMessage(String.format("Character found %s", something.get().name()));
             }
         }
     }

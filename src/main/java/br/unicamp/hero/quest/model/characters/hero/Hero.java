@@ -6,11 +6,11 @@ import br.unicamp.hero.quest.model.characters.Character;
 import java.util.*;
 
 public abstract class Hero extends Character {
-    private final List<Action> actions;
+    private final ArrayList<Action> actions;
 
     public Hero(int attack, int defense, int hp, int iq, List<Action> actions, int x, int y, String name) {
         super(attack, defense, hp, iq, x, y, name);
-        this.actions = actions;
+        this.actions = new ArrayList<>(actions);
     }
 
     @Override

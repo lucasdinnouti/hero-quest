@@ -20,7 +20,7 @@ public class MovementService {
         Point newPosition = PositionUtils.plusDirection(character.getPosition(), direction);
 
         if (!board.canMove(newPosition)) {
-            throw new InvalidPositionException(String.format(INVALID_POSITION_MESSAGE, character.toString(), newPosition.toString()));
+            throw new InvalidPositionException(String.format(INVALID_POSITION_MESSAGE, character.getName(), newPosition.toString()));
         }
 
         character.setPosition(newPosition);

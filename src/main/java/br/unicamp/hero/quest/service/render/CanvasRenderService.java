@@ -7,9 +7,4 @@ public class CanvasRenderService implements RenderService {
     public void render(Board board) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public void displayMessage(String message) {
-        throw new UnsupportedOperationException();
-    }
 }

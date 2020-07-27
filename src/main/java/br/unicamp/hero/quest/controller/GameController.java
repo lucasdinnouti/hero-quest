@@ -49,22 +49,22 @@ public class GameController {
 
     public void startGame() {
         int roundNumber = 0;
-        renderService.render(this.board);
         do {
             final List<Character> characters = new ArrayList<>(this.board.getCharacters());
             if (characters.isEmpty()) {
-                renderService.displayMessage(NO_CHARACTERS_MESSAGE);
+                MessageUtils.displayMessage(NO_CHARACTERS_MESSAGE);
                 return;
             }
             roundNumber++;
-            renderService.displayMessage(" ".repeat(31) + String.format(ROUND_BANNER_MESSAGE, roundNumber));
+            MessageUtils.displayMessage(" ".repeat(31) + String.format(ROUND_BANNER_MESSAGE, roundNumber));
+            renderService.render(this.board);
 
             for (Character character : characters) {
-                renderService.displayMessage(String.format(CHARACTERS_TURN_MESSAGE, character.getName()));
+                MessageUtils.displayMessage(String.format(CHARACTERS_TURN_MESSAGE, character.getName()));
                 manageRound(character);
             }
 
-            renderService.displayMessage(CONTINUES_CONFIRMATION_MESSAGE);
+            MessageUtils.displayMessage(CONTINUES_CONFIRMATION_MESSAGE);
         } while (inputService.readCommand() != QUIT);
     }
 
@@ -152,7 +152,7 @@ public class GameController {
     private void actionPhase(Character character) {
         boolean validAction = false;
 
-        renderService.displayMessage(ACTION_PHASE_MESSAGE);
+        MessageUtils.displayMessage(ACTION_PHASE_MESSAGE);
         while (!validAction) {
             displayInformation("Executing " + inputService.getLastCommand().name());
             switch (inputService.getLastCommand()) {
@@ -171,7 +171,7 @@ public class GameController {
                 case QUIT:
                     return;
                 default:
-                    renderService.displayMessage(String.format(UNKNOWN_ACTION_MESSAGE, QUIT_COMMAND));
+                    MessageUtils.displayMessage(String.format(UNKNOWN_ACTION_MESSAGE, QUIT_COMMAND));
                     inputService.readCommand();
             }
         }
@@ -186,13 +186,13 @@ public class GameController {
     private void walkPhase(Character character) {
         Command command = inputService.getLastCommand();
 
-        renderService.displayMessage(WALK_PHASE_MESSAGE);
+        MessageUtils.displayMessage(WALK_PHASE_MESSAGE);
         movementController.startWalkPhase(character);
         while (command.isWalkCommand()) {
             try {
                 movementController.walk(character, directionFromCommand(command));
             } catch (MoveException e) {
-                renderService.displayMessage(e.getMessage());
+                MessageUtils.displayMessage(e.getMessage());
             }
             displayInformation(String.format("Remaining steps: %d", movementController.remainingSteps(character)));
             command = inputService.readCommand();
@@ -217,7 +217,7 @@ public class GameController {
     }
 
     private void displayInformation(String message) {
-        renderService.displayMessage(message);
+        MessageUtils.displayMessage(message);
         renderService.render(board);
     }
 

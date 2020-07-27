@@ -42,11 +42,21 @@ public abstract class ActionService {
         // Attack Spell
         Map<String, Character> characterMap = this.getVisibleCharacterMap(character, null);
         Optional<Character> targetOptional = this.getTarget(characterMap);
+
+        if (targetOptional.isEmpty()) {
+            return;
+        }
+
         targetOptional.ifPresent(target -> spell.execute(character, target));
 
         if (spell.isDisposable()) {
             character.loseAction(spell);
         }
+
+        MessageUtils.displayMessage(
+            String.format("Character %s used spell: %s, which is ", character.getName(), spell.getClass().getSimpleName()) +
+            (spell.isDisposable() ? "" : "not") + " disposable"
+        );
 
         board.removeCorpses();
     }
@@ -72,11 +82,21 @@ public abstract class ActionService {
             });
 
         Optional<Character> targetOptional = this.getTarget(characterMap);
+
+        if (targetOptional.isEmpty()) {
+            return;
+        }
+
         targetOptional.ifPresent(target -> weapon.execute(character, target));
 
         if (weapon.isDisposable()) {
             character.loseAction(weapon);
         }
+
+        MessageUtils.displayMessage(
+            String.format("Character %s used weapon: %s, which is ", character.getName(), weapon.getClass().getSimpleName()) +
+            (weapon.isDisposable() ? "" : "not") + " disposable"
+        );
 
         board.removeCorpses();
     }
